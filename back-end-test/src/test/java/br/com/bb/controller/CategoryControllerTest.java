@@ -37,12 +37,36 @@ public class CategoryControllerTest {
     public void listAll() throws Exception {
         mockMvc.perform(get("/category/listAll"))
         .andExpect(status().isOk())
-	    		.andExpect(jsonPath("$", hasSize(3)))
-	        .andExpect(jsonPath("$[0].id", is(1)))
-	        .andExpect(jsonPath("$[0].name", is("Alimentos")))
-	        .andExpect(jsonPath("$[1].id", is(2)))
-	        .andExpect(jsonPath("$[1].name", is("Eletrodomésticos")))
-	        .andExpect(jsonPath("$[2].id", is(3)))
-	        .andExpect(jsonPath("$[2].name", is("Móveis")));
+	    .andExpect(jsonPath("$", hasSize(3)))
+	    .andExpect(jsonPath("$[0].id", is(1)))
+	    .andExpect(jsonPath("$[0].name", is("Alimentos")))
+	    .andExpect(jsonPath("$[1].id", is(2)))
+	    .andExpect(jsonPath("$[1].name", is("Eletrodomésticos")))
+	    .andExpect(jsonPath("$[2].id", is(3)))
+	    .andExpect(jsonPath("$[2].name", is("Móveis")));
     }
+	
+	@Test
+	public void findMoreOccurrencesV() throws Exception {
+		mockMvc.perform(get("/category/findMoreOccurrences/v"))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.id", is(3)))
+		.andExpect(jsonPath("$.name", is("Móveis")));
+	}
+	
+	@Test
+	public void findMoreOccurrencesS() throws Exception {
+		mockMvc.perform(get("/category/findMoreOccurrences/s"))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.id", is(2)))
+		.andExpect(jsonPath("$.name", is("Eletrodomésticos")));
+	}
+	
+	@Test
+	public void findMoreOccurrencesT() throws Exception {
+		mockMvc.perform(get("/category/findMoreOccurrences/t"))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.id", is(2)))
+		.andExpect(jsonPath("$.name", is("Eletrodomésticos")));
+	}
 }
